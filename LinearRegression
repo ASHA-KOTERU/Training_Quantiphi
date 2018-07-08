@@ -1,0 +1,30 @@
+import pandas as pd
+from sklearn.datasets import load_boston
+#loading the data from skmetrics
+boston=load_boston()
+
+print boston.keys()
+
+#creating a data frame for boston data
+bos_df=pd.DataFrame(boston.data,columns=boston.feature_names)
+#y=price of the house,X=remaining all features
+X=bos_df
+Y=boston.target
+
+#adding the target to boston dataframe as price
+bos_df['Price']=boston.target
+
+#print bos_df.head()
+
+print(bos_df.describe())
+from sklearn.model_selection import train_test_split
+#splitting the data
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.20, random_state = 5)
+#building a linear regression model 
+from sklearn.linear_model import LinearRegression
+reg=LinearRegression()
+reg.fit(X_train,Y_train)
+pred=reg.predict(X_test)
+#print "coef", reg.coef_
+print "intercept",reg.intercept_ 
+print "score: ", reg.score(X_test,Y_test)
