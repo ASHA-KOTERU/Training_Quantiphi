@@ -1,0 +1,33 @@
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+
+bc=load_breast_cancer()
+bc
+
+
+print bc.keys()
+
+print bc.DESCR
+
+print bc.target_names
+
+print bc.data
+
+print bc.target
+
+
+print bc.feature_names
+X=bc.data
+Y=bc.target
+#splitting the data
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2,stratify=bc.target,random_state=42)
+
+from sklearn.linear_model import LogisticRegression
+
+
+cls=LogisticRegression()
+
+cls.fit(X_train,Y_train)
+
+print "accuracy score", cls.score(X_test,Y_test)
